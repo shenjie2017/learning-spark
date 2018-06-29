@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="user-location" target="1.5" />
+      <module name="user-location" target="1.8" />
       <module name="word-count" target="1.8" />
     </bytecodeTargetLevel>
   </component>
