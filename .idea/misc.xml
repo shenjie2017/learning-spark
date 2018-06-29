@@ -16,6 +16,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/word-count/pom.xml" />
+        <option value="$PROJECT_DIR$/user-location/pom.xml" />
       </list>
     </option>
   </component>
