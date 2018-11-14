@@ -18,6 +18,7 @@
         <option value="$PROJECT_DIR$/word-count/pom.xml" />
         <option value="$PROJECT_DIR$/user-location/pom.xml" />
         <option value="$PROJECT_DIR$/streaming-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/broadcost-demo/pom.xml" />
       </list>
     </option>
   </component>
