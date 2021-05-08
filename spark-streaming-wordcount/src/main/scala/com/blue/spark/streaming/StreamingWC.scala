@@ -1,7 +1,8 @@
 package com.blue.spark.streaming
 
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
-import org.apache.spark.{SparkConf}
+import org.apache.spark.SparkConf
 
 object StreamingWC {
 
@@ -27,6 +28,7 @@ object StreamingWC {
   }
 
   def main(args: Array[String]): Unit = {
+    Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
     val checkpointDirectory = "/tmp/checkpoint/spark-streaming"
     val ssc = StreamingContext.getOrCreate(checkpointDirectory, () => createContext("127.0.0.1", 9999, checkpointDirectory))
 
