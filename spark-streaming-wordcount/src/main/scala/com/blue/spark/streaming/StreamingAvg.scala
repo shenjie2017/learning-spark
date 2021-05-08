@@ -3,11 +3,23 @@ package com.blue.spark.streaming
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf}
 
-object StreamingWC {
+object StreamingAvg {
 
-  def updateFunc(new_values:Seq[Int], last_state:Option[Int]): Option[Int] = {
-//    print(new_values.length)
-    Some(new_values.sum + last_state.getOrElse(0))
+  def updateFunc(new_values:Seq[Double], last_state:Option[Double]): Option[Double] = {
+    print(new_values.length)
+    val last_avg_value = last_state.getOrElse(6.0)
+    var count_value=0
+    var sum_value = 0.0
+    for (value <- new_values){
+      val check_value = value/last_avg_value
+      if(check_value >=0.5 && check_value<=1.5 ){
+        count_value += 1
+        sum_value += value
+      }
+    }
+    var new_avg_value=last_avg_value
+    if(count_value!=0) new_avg_value=(sum_value/count_value + last_avg_value)/2
+    Some(new_avg_value)
 }
 
   def createContext(ip: String, port: Int, checkpointDirectory: String) : StreamingContext = {
@@ -20,9 +32,8 @@ object StreamingWC {
     ssc.checkpoint(checkpointDirectory)
 
     val ds = ssc.socketTextStream(ip,port)
-    val result = ds.flatMap(_.split(" ")).map((_,1)).updateStateByKey(updateFunc=updateFunc)
+    val result = ds.flatMap(_.split(" ")).map(x=>(1,x.toDouble)).updateStateByKey(updateFunc=updateFunc)
     result.print()
-
     ssc
   }
 
